@@ -2,124 +2,113 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>US Social Metrics</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>US Social Metrics</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="jumbotron text-center">
-            <h1>US Social Metrics</h1>
-            <p>This progject will analyze different demographic data points obtained from US Census ACS.
-            </p>
-            <h2>Median Income for Oregon 2019: </h2>
-        </div>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <h1>US Social Metrics</h1>
+      <p>This progject will analyze different demographic data points obtained from US Census ACS.</p>
+      <h2>Select a county from the dropdown menu:</h2>
     </div>
-
-
-    <div class="row" id="section2">
-        <div class="col-md-12">                   
-            <select id="selDataset">
-                <!-- <option value="dataset1">US</option>
-                <option value="dataset2">Oregon</option> -->
-                <option value="dataset2">County</option>
-            </select>   
-              
-        </div>
-        <h2>Median Rent (US/Oregon/County)</h2>  
-        <div id="plot1"></div>
+  </div>
+  <div class="row" id="section2">
+    <div class="col-md-12">
+      <select id="selDataset">
+        <option value="Baker">Baker</option>
+        <option value="Benton">Benton</option>
+        <option value="Clackamas">Clackamas</option>
+        <option value="Clatsop">Clatsop</option>
+        <option value="Columbia">Columbia</option>
+        <option value="Coos">Coos</option>
+        <option value="Crook">Crook</option>
+        <option value="Curry">Curry</option>
+        <option value="Deschutes">Deschutes</option>
+        <option value="Douglas">Douglas</option>
+        <option value="Gilliam">Gilliam</option>
+        <option value="Grant">Grant</option>
+        <option value="Harney">Harney</option>
+        <option value="Hood">Hood River</option>
+        <option value="Jackson">Jackson</option>
+        <option value="Jefferson">Jefferson</option>
+        <option value="Josephine">Josephine</option>
+        <option value="Klamath">Klamath</option>
+        <option value="Lake">Lake</option>
+        <option value="Lane">Lane</option>
+        <option value="Lincoln">Lincoln</option>
+        <option value="Linn">Linn</option>
+        <option value="Malheur">Malheur</option>
+        <option value="Marion">Marion</option>
+        <option value="Morrow">Morrow</option>
+        <option value="Multnomah">Multnomah</option>
+        <option value="Polk">Polk</option>
+        <option value="Sherman">Sherman</option>
+        <option value="Tillamook">Tillamook</option>
+        <option value="Umatilla">Umatilla</option>
+        <option value="Union">Union</option>
+        <option value="Wallowa">Wallowa</option>
+        <option value="Wasco">Wasco</option>
+        <option value="Washington">Washington</option>
+        <option value="Wheeler">Wheeler</option>
+        <option value="Yamhill">Yamhill</option>
+      </select>
+      <h3>2019 Median Income: </h3>
     </div>
-
-    <!-- <div class="row">
-      <div class="col-md-12">
-          <h2>Median Income</h2>
-          <p>List Median Income for Oregon/US</p>
-          <table id="summary-table" class="table table-striped table-inverse">
-              <thead>
-                  <tr>
-                      <th>United States</th>
-                      <th>Oregon</th>
-                  </tr>
-              </thead>
-              <tbody></tbody>
-          </table>
-      </div>
-  </div> -->
+  </div>
 
   <div class="row" id="section1">
     <div class="col-md-12">
-        <h2>Homeowner Vs. Renter</h2>
-        <div id="pie"></div>
+      <h2>Homeowner Vs. Renter</h2>
+      <div id="pie"></div>
     </div>
-</div>
+  </div>
 
 
-    <div class="row" id="section3">
-        <div class="col-md-12">
-            <h2>Median Income vs New housing (Built 2014 or later)</h2>
-            <div id="plot2"></div>
-        </div>
+  <div class="row" id="section3">
+    <div class="col-md-12">
+      <h2>Changes to Median Rent 2015-2019</h2>
+      <div id="plot"></div>
     </div>
+  </div>
 
-    <div class="row" id="section2">
-        <div class="col-md-12">
-            <h2>Rent to Income Ratio (US/Oregon/County)</h2>
-            <div id="plot3"></div>
-            <select id="selDataset">
-                <option value="dataset1">US</option>
-                <option value="dataset2">Oregon</option>
-                <option value="dataset2">County</option>
-            </select>
-        </div>
+  <div class="row" id="section2">
+    <div class="col-md-12">
+      <h2>Maps of state by county</h2>
+      <div id="map1"></div>
+      <div id="map2"></div>
     </div>
+  </div>
+  </div>
+  <!-- Optional JavaScript; choose one of the two! -->
 
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
 
-
-
-    <!-- Plotly template -->
-    <!-- <div id="tester" style="width:600px;height:250px;">
-    </div> -->
-
-    <!-- Leaflet template -->
-    <!-- <div class="row" id="section1">
-        <h2>Rent to Income Map</h2>
-        <div id="mapid"></div>
-    </div> -->
-
-
-
-
-
-
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
 
-    <script src="plots.js"></script>
+  <script type="text/javascript" src="static/plots.js"></script>
 
 </body>
 
