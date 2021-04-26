@@ -22,15 +22,10 @@ def index():
 @app.route('/api/v1/home')
 def home():
 
-    return(
-        "Available Routes:<br>"
-        "/or => median rent data by year for oregon<br>"
-        "/us => median rent data by year nationally <br>"
-        "/county => full census dataset by county"
-        )
-
+    return render_template("api.html")
 
 @app.route("/api/v1/<county>")
+
 def county_stats(county):
     
     county_info = list(full_dataset.find({'county': county}))
