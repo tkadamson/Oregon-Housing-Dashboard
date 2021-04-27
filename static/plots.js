@@ -19,13 +19,13 @@ function createPlots(countyName) {
         let homeowners = countyData[0].homeowners
 
         // 2019 Median Income 
-        let medianIncomeTag = d3.select("#section2").append("h5").text(medianIncome);
-
-
+        d3.select("#income").html("");
+        d3.select("#income").append("h5").text(medianIncome)
+        
         // 2019 Percent of Income
         let percentOfIncome = (medianRent2019 / (medianIncome / 12)) * 100
-        let percentIncomeTag = d3.select("#section3").append("h5").text(percentOfIncome)
-
+        d3.select("#rent").html("");
+        d3.select("#rent").append("h5").text(percentOfIncome)
 
 
         let trace1 = {
@@ -35,7 +35,7 @@ function createPlots(countyName) {
         };
 
 
-        let data = [trace1];
+        let data1 = [trace1];
 
         let layout = {
             title: countyName,
@@ -43,7 +43,7 @@ function createPlots(countyName) {
             yaxis: { title: "Average Rent ($)" }
         }
 
-        Plotly.newPlot('plot', data, layout);
+        Plotly.newPlot('plot', data1, layout);
 
 
 
@@ -52,6 +52,7 @@ function createPlots(countyName) {
         var margin = 40;
 
         var radius = Math.min(width, height) / 2 - margin;
+        d3.select("#pie").html("")
 
         var svg = d3.select("#pie")
             .append("svg")
@@ -60,13 +61,13 @@ function createPlots(countyName) {
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        var data = { "Renters": renters, "Homeowners": homeowners };
+        var plotData = { "Renters": renters, "Homeowners": homeowners };
 
         var pie = d3.pie()
             .value(function (d) { return d.value; });
-        var data_ready = pie(d3.entries(data));
+        var data_ready = pie(d3.entries(plotData));
         var color = d3.scaleOrdinal()
-            .domain(data)
+            .domain(plotData)
             .range(d3.schemeSet2);
 
         svg
@@ -109,65 +110,65 @@ function countyID() {
 
 d3.selectAll("#selDataset").on("change", countyID);
 
-let counties = ['Baker','Benton','Clackamas','Clatsop', 'Columbia',
-            'Coos', 'Crook', 'Curry', 'Deschutes', 'Douglas', 'Gilliam', 
-            'Grant', 'Harney', 'Hood', 'Jackson', 'Jefferson', 'Josephine',
-            'Klamath', 'Lake', 'Lane', 'Lincoln', 'Linn', 'Malheur', 'Marion',
-            'Morrow', 'Multnomah', 'Polk', 'Sherman', 'Tillamook', 'Umatilla', 
-            'Union', 'Wallowa', 'Wasco', 'Washington', 'Wheeler', 'Yamhill'];
-var countyCall =[]
+let counties = ['Baker', 'Benton', 'Clackamas', 'Clatsop', 'Columbia',
+    'Coos', 'Crook', 'Curry', 'Deschutes', 'Douglas', 'Gilliam',
+    'Grant', 'Harney', 'Hood', 'Jackson', 'Jefferson', 'Josephine',
+    'Klamath', 'Lake', 'Lane', 'Lincoln', 'Linn', 'Malheur', 'Marion',
+    'Morrow', 'Multnomah', 'Polk', 'Sherman', 'Tillamook', 'Umatilla',
+    'Union', 'Wallowa', 'Wasco', 'Washington', 'Wheeler', 'Yamhill'];
+var countyCall = []
 
-for (let i=0; i < counties.length; i++) {
+for (let i = 0; i < counties.length; i++) {
 
     countyCall.push(d3.json(`/api/v1/${counties[i]}`))
 
 };
 
 function buildMap(metric, div, label) {
-    Highcharts.getJSON("https://code.highcharts.com/mapdata/countries/us/us-or-all.geo.json", 
-    function (geojson){
+    Highcharts.getJSON("https://code.highcharts.com/mapdata/countries/us/us-or-all.geo.json",
+        function (geojson) {
 
-        //console.log(geojson);
-        Highcharts.mapChart(div, {
-            chart: {
-                map: geojson
-            },
+            //console.log(geojson);
+            Highcharts.mapChart(div, {
+                chart: {
+                    map: geojson
+                },
 
-            title: {
-                text: label
-            },
+                title: {
+                    text: label
+                },
 
-            mapNavigation: {
-                enabled: true,
-                buttonOptions: {
-                    verticalAlign: 'bottom'
-                }
-            },
-
-            colorAxis: {
-                tickPixelInterval: 100
-            },
-            
-            series: [{
-                data: metric,
-                mapData: Highcharts.maps["us/us-or-all"],
-                keys: ['hc-key', 'value'],
-                joinBy: 'hc-key',
-                name: label,
-                states: {
-                    hover: {
-                    color: '#a4edba'
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
                     }
                 },
 
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.properties.name}'
+                colorAxis: {
+                    tickPixelInterval: 100
                 },
 
-            }]
-        })   
-    });
+                series: [{
+                    data: metric,
+                    mapData: Highcharts.maps["us/us-or-all"],
+                    keys: ['hc-key', 'value'],
+                    joinBy: 'hc-key',
+                    name: label,
+                    states: {
+                        hover: {
+                            color: '#a4edba'
+                        }
+                    },
+
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.properties.name}'
+                    },
+
+                }]
+            })
+        });
 };
 
 Promise.all(countyCall).then(allCounties => {
@@ -195,7 +196,7 @@ Promise.all(countyCall).then(allCounties => {
 
         newHousing.push([`us-or-${countyData[0].county_fips}`, Number(countyData[0].new_housing)]);
     })
-    
+
     buildMap(popData, "map1", "Population");
     buildMap(incomeData, "map2", "Median Income");
     buildMap(rentData, "map3", "Median Rent");
