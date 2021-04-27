@@ -3,8 +3,8 @@ let countyName = "Baker"
 createPlots(countyName);
 
 function createPlots(countyName) {
-    
-    d3.json(`api/v1/${countyName}`).then(function(countyData) {
+
+    d3.json(`api/v1/${countyName}`).then(function (countyData) {
         console.log(countyData);
 
         let countyFips = countyData[0].county_fips;
@@ -15,9 +15,12 @@ function createPlots(countyName) {
         let medianRent2018 = countyData[0].county_median_rent_2018;
         let medianRent2019 = countyData[0].county_median_rent_2019;
         let medianIncome = countyData[0].county_median_income;
+        let renters = countyData[0].renters
+        let homeowners = countyData[0].homeowners
 
         // 2019 Median Income 
         let medianIncomeTag = d3.select("#section2").append("h5").text(medianIncome);
+
 
         // 2019 Percent of Income
         let percentOfIncome = (medianRent2019 / (medianIncome / 12)) * 100
@@ -30,10 +33,10 @@ function createPlots(countyName) {
             y: [medianRent2015, medianRent2016, medianRent2017, medianRent2018, medianRent2019],
             type: 'scatter'
         };
-        
-        
+
+
         let data = [trace1];
-        
+
         let layout = {
             title: countyName,
             xaxis: { title: "Year", tickformat: '.0f', dtick: 1 },
@@ -41,6 +44,57 @@ function createPlots(countyName) {
         }
 
         Plotly.newPlot('plot', data, layout);
+
+
+
+        var width = 450;
+        var height = 450;
+        var margin = 40;
+
+        var radius = Math.min(width, height) / 2 - margin;
+
+        var svg = d3.select("#pie")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        var data = { "Renters": renters, "Homeowners": homeowners };
+
+        var pie = d3.pie()
+            .value(function (d) { return d.value; });
+        var data_ready = pie(d3.entries(data));
+        var color = d3.scaleOrdinal()
+            .domain(data)
+            .range(d3.schemeSet2);
+
+        svg
+            .selectAll('whatever')
+            .data(data_ready)
+            .enter()
+            .append('path')
+            .attr('d', d3.arc()
+                .innerRadius(0)
+                .outerRadius(radius)
+            )
+            .attr('fill', function (d) { return (color(d.data.key)) })
+            .attr("stroke", "black")
+            .style("stroke-width", "2px")
+            .style("opacity", 0.7);
+        var arcGenerator = d3.arc()
+            .innerRadius(0)
+            .outerRadius(radius);
+
+        svg
+            .selectAll('mySlices')
+            .data(data_ready)
+            .enter()
+            .append('text')
+            .text(function (d) { return d.data.key + " " + d.data.value })
+            .attr("transform", function (d) { return "translate(" + arcGenerator.centroid(d) + ")"; })
+            .style("text-anchor", "middle")
+            .style("font-size", 17);
     })
 
 }
