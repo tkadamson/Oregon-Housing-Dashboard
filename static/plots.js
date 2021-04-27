@@ -4,7 +4,7 @@ createPlots(countyName);
 
 function createPlots(countyName) {
 
-    d3.json(`api/v1/${countyName}`).then(function (countyData) {
+    d3.json(`/api/v1/${countyName}`).then(countyData => {
         console.log(countyData);
 
         let countyFips = countyData[0].county_fips;
