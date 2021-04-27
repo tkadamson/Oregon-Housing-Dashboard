@@ -5,7 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>US Social Metrics</title>
+  <title>Oregon Housing Metrics</title>
+
+  <link href="/static/styles.css" rel="stylesheet">
+
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -17,20 +20,23 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script> -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/data.js"></script>
 </head>
 
 <body>
 
   <div class="container">
     <div class="jumbotron text-center">
-      <h1>US Social Metrics</h1>
-      <p>This progject will analyze different demographic data points obtained from US Census ACS.</p>
-      <h2>Select a county from the dropdown menu:</h2>
+      <h1>Oregon Housing Metrics</h1>
+      <p>This project will analyze housing data in Oreogn, by county. The data was pulled from the American Community Survey and consolidated in a local <a href="/api/v1/home">API</a></p>
     </div>
   </div>
 
   <div class="row" id="section1">
     <div class="col-md-12">
+      <h4>Select a county from the dropdown menu:</h4>
       <select id="selDataset">
         <option value="Baker">Baker</option>
         <option value="Benton">Benton</option>
@@ -73,14 +79,23 @@
   </div>
 
   <div class="row" id="section2">
-    <div class="col-md-12">
+    <div class="col-md-6">
+      <br>
       <h3>2019 Median Income: </h3>
-      <h3>Percent of Income Spent On Rent: </h3>
+      <h3 id='income'></h3>
     </div>
+    <div class ='col-md-6'>
+      <br>
+      <h3>Percent of Income Spent On Rent: </h3>
+      <h3 id='rent'></h3>
+    </div>
+  </div>
+
   </div>
 
   <div class="row" id="section3">
     <div class="col-md-12">
+      <br>
       <h3>Homeowner Vs. Renter</h3>
       <div id="pie"></div>
     </div>
@@ -88,27 +103,47 @@
 
   <div class="row" id="section4">
     <div class="col-md-12">
+      <br>
       <h3>Changes to Median Rent (2015-2019)</h3>
       <div id="plot"></div>
     </div>
   </div>
 
-  <div class="row" id="section5">
-    <div class="col-md-12">
-      <h3>Maps of state by county: </h3>
-      <h4>Median Income</h4>
-      <div id="map1"></div>
-      <h4>County Population</h4>
-      <div id="map2"></div>
-      <h4>Median Rent</h4>
-      <div id="map3"></div>
-      <h4>Renter Estimate</h4>
-      <div id="map4"></div>
-      <h4>Homeowner Estimate</h4>
-      <div id="map5"></div>
-      <h4>New Housing Stock (Built 2014 or later)</h4>
-      <div id="map6"></div>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div id='map1'></div>
     </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-12'>
+      <div id='map2'></div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-12'>
+      <div id='map3'></div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-12'>
+      <div id='map4'></div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-12'>
+      <div id='map5'></div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-12'>
+      <div id='map6'></div>
+    </div>
+  </div>
   </div>
 
   <footer>
