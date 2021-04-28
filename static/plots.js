@@ -17,11 +17,13 @@ function createPlots(countyName) {
         let medianIncome = countyData[0].county_median_income;
 
         // 2019 Median Income 
-        let medianIncomeTag = d3.select("#section2").append("h5").text(medianIncome);
+        d3.select("#income").html("");
+        d3.select("#income").append("h5").text(medianIncome)
 
         // 2019 Percent of Income
         let percentOfIncome = (medianRent2019 / (medianIncome / 12)) * 100
-        let percentIncomeTag = d3.select("#section3").append("h5").text(percentOfIncome)
+        d3.select("#rent").html("");
+        d3.select("#rent").append("h5").text(percentOfIncome)
 
 
 
