@@ -2,9 +2,74 @@ h3 {
     text-align: center;
 }
 
+body {
+    background-image: url(/static/oregon.jpg);
+}
+
+h1 {
+    font-weight: bold;
+    text-align: center;
+    color: rgb(4, 59, 38);
+}
+
+h3 {
+    font-weight: bold;
+    text-align: center;
+    color: rgb(7, 7, 97);
+    
+}
+
+#rentPlot {
+    background-color: rgb(193, 240, 232);
+    background-blend-mode: lighten;
+}
+
+#pie {
+    display: flex;
+    justify-content: center;
+}
+
+#plot {
+    display: flex;
+    justify-content: center;
+}
+
 #map1 {
     height: 500px; 
     min-width: 310px; 
     max-width: 800px; 
     margin: 0 auto; 
 }
+
+#map2 {
+    height: 500px; 
+    min-width: 310px; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+
+#map3 {
+    height: 500px; 
+    min-width: 310px; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+#map4 {
+    height: 500px; 
+    min-width: 310px; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+#map5 {
+    height: 500px; 
+    min-width: 310px; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+#map6 {
+    height: 500px; 
+    min-width: 310px; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+

@@ -4,7 +4,25 @@ createPlots(countyName);
 
 function createPlots(countyName) {
 
-    d3.json(`/api/v1/${countyName}`).then(countyData => {
+    d3.json(`/api/v1/or`).then(function (orData){
+        console.log(orData)
+
+        let orRent2015 = orData[0].state_median_rent_2015;
+        let orRent2016 = orData[0].state_median_rent_2016;
+        let orRent2017 = orData[0].state_median_rent_2017;
+        let orRent2018 = orData[0].state_median_rent_2018;
+        let orRent2019 = orData[0].state_median_rent_2019;
+
+    d3.json(`api/v1/us`).then(function (usData) {
+        console.log(usData);
+
+        let usRent2015 = usData[0].us_median_rent_2015;
+        let usRent2016 = usData[0].us_median_rent_2016;
+        let usRent2017 = usData[0].us_median_rent_2017;
+        let usRent2018 = usData[0].us_median_rent_2018;
+        let usRent2019 = usData[0].us_median_rent_2019;
+
+    d3.json(`api/v1/${countyName}`).then(function (countyData) {
         console.log(countyData);
 
         let countyFips = countyData[0].county_fips;
@@ -18,24 +36,41 @@ function createPlots(countyName) {
         let renters = countyData[0].renters
         let homeowners = countyData[0].homeowners
 
+
         // 2019 Median Income 
         d3.select("#income").html("");
-        d3.select("#income").append("h5").text(medianIncome)
+        d3.select("#income").append("h5").text("$" + medianIncome);
         
         // 2019 Percent of Income
         let percentOfIncome = (medianRent2019 / (medianIncome / 12)) * 100
+        let percentOfIncomeFloat = parseFloat(percentOfIncome).toFixed(2);
         d3.select("#rent").html("");
-        d3.select("#rent").append("h5").text(percentOfIncome)
+        d3.select("#rent").append("h5").text(percentOfIncomeFloat + "%");
 
 
         let trace1 = {
             x: [2015, 2016, 2017, 2018, 2019],
             y: [medianRent2015, medianRent2016, medianRent2017, medianRent2018, medianRent2019],
+            name: 'County Median Rent',
+            type: 'scatter'
+        };
+
+        let trace2 = {
+            x: [2015, 2016, 2017, 2018, 2019],
+            y: [usRent2015, usRent2016, usRent2017, usRent2018, usRent2019],
+            name: 'US Median Rent', 
+            type: 'scatter'
+        };
+
+        let trace3 = {
+            x: [2015, 2016, 2017, 2018, 2019],
+            y: [orRent2015, orRent2016, orRent2017, orRent2018, orRent2019],
+            name: 'Oregon Median Rent',
             type: 'scatter'
         };
 
 
-        let data1 = [trace1];
+        let data1 = [trace1, trace2, trace3];
 
         let layout = {
             title: countyName,
@@ -96,6 +131,8 @@ function createPlots(countyName) {
             .attr("transform", function (d) { return "translate(" + arcGenerator.centroid(d) + ")"; })
             .style("text-anchor", "middle")
             .style("font-size", 17);
+    })
+    })
     })
 
 }
