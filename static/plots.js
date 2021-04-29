@@ -97,6 +97,7 @@ function createPlots(countyName) {
 //*************************************************************************************
 //PIE CHART HOMEOWNERS VS RENTERS
 
+        //Define area for pie chart
         var width = 450;
         var height = 450;
         var margin = 40;
@@ -104,6 +105,7 @@ function createPlots(countyName) {
         var radius = Math.min(width, height) / 2 - margin;
         d3.select("#pie").html("")
 
+        //Apend the circle to the pie id
         var svg = d3.select("#pie")
             .append("svg")
             .attr("width", width)
@@ -111,8 +113,10 @@ function createPlots(countyName) {
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+        //Load in the data for renters and homeowners
         var plotData = { "Renters": renters, "Homeowners": homeowners };
 
+        //Build the pie chart with the above data
         var pie = d3.pie()
             .value(function (d) { return d.value; });
         var data_ready = pie(d3.entries(plotData));
@@ -152,6 +156,7 @@ function createPlots(countyName) {
 
 }
 
+//Function to get the new county when the user selects a new county
 function countyID() {
     let dropdownMenu = d3.select("#selDataset");
     let id = dropdownMenu.property("value");
@@ -159,6 +164,7 @@ function countyID() {
     createPlots(id);
 }
 
+//Event listener on dropdown
 d3.selectAll("#selDataset").on("change", countyID);
 
 
@@ -171,6 +177,8 @@ let counties = ['Baker', 'Benton', 'Clackamas', 'Clatsop', 'Columbia',
     'Klamath', 'Lake', 'Lane', 'Lincoln', 'Linn', 'Malheur', 'Marion',
     'Morrow', 'Multnomah', 'Polk', 'Sherman', 'Tillamook', 'Umatilla',
     'Union', 'Wallowa', 'Wasco', 'Washington', 'Wheeler', 'Yamhill'];
+
+//countyCall will be populated with the api endpoint for each county
 var countyCall = []
 
 for (let i = 0; i < counties.length; i++) {
@@ -180,19 +188,24 @@ for (let i = 0; i < counties.length; i++) {
 };
 
 function buildMap(metric, div, label) {
+    //getJSON grabs the specific map we want to use
     Highcharts.getJSON("https://code.highcharts.com/mapdata/countries/us/us-or-all.geo.json",
         function (geojson) {
 
             //console.log(geojson);
+
             Highcharts.mapChart(div, {
+                //Define map
                 chart: {
                     map: geojson
                 },
 
+                //Add map title
                 title: {
                     text: label
                 },
 
+                //Lower bar
                 mapNavigation: {
                     enabled: true,
                     buttonOptions: {
@@ -203,7 +216,8 @@ function buildMap(metric, div, label) {
                 colorAxis: {
                     tickPixelInterval: 100
                 },
-
+                
+                //This is where the data is loaded in to match on county codes
                 series: [{
                     data: metric,
                     mapData: Highcharts.maps["us/us-or-all"],
@@ -226,7 +240,11 @@ function buildMap(metric, div, label) {
         });
 };
 
+//Promise.all() catches all the endpoints
+
 Promise.all(countyCall).then(allCounties => {
+
+    //Declare variable arrays to store specific map data
     var popData = [];
     var incomeData = [];
     var rentData = [];
@@ -234,6 +252,7 @@ Promise.all(countyCall).then(allCounties => {
     var percRenters = [];
     var newHousing = [];
 
+    //For every county in countyCall, get county code ('us-or-countyfips) and the info we want
     allCounties.forEach(countyData => {
         popData.push([`us-or-${countyData[0].county_fips}`, Number(countyData[0].pop)]);
 
@@ -252,6 +271,7 @@ Promise.all(countyCall).then(allCounties => {
         newHousing.push([`us-or-${countyData[0].county_fips}`, Number(countyData[0].new_housing)]);
     })
 
+    //Call buildMap for every one to display
     buildMap(popData, "map1", "Population");
     buildMap(incomeData, "map2", "Median Income");
     buildMap(rentData, "map3", "Median Rent");
