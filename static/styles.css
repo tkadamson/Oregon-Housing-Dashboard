@@ -1,5 +1,33 @@
-h3 {
+body {
+    background-image: url(/static/oregon.jpg);
+}
+
+h1 {
+    font-weight: bold;
     text-align: center;
+    color: rgb(4, 59, 38);
+}
+
+h3 {
+    font-weight: bold;
+    text-align: center;
+    color: rgb(7, 7, 97);
+    
+}
+
+#rentPlot {
+    background-color: rgb(193, 240, 232);
+    background-blend-mode: lighten;
+}
+
+#pie {
+    display: flex;
+    justify-content: center;
+}
+
+#plot {
+    display: flex;
+    justify-content: center;
 }
 
 body {
