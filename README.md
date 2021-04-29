@@ -35,6 +35,9 @@ Given these metrics, we needed the 2019 data for each county at each metric, and
 Similarly, for both the Oregon and US data, we used API calls to get the 2014-2019 median rents, and uploaded them to MongoDB as a separate state and national record. 
 
 ### Flask App API
+After all the data was loaded into MongoDB, we built a Flask app to display each record in a unique route. The home route contained a redirect for the project main page (see detailed explanation below) and the api/v1/home route displayed a page on how to use the API as well as links to each endpoint. 
 
+After these landing pages, we built one route to the US data, one route to Oregon data, and a county route that took the county in the url and used that to call the selected county's record. Each page displayed the MongoDB record in jsonified format so that we could later call the data into our javascript file (see below)
 
 ### Visulaizations Page (With Javascript)
+
