@@ -4,7 +4,7 @@
 This project tracks various housing social metrics across the state of Oregon including the ratio of renters to homeowners, county median rent costs in relation to the state and national means, and where new housing is being built. All data comes from the American Community Survey years 2014-2019.
 
 ## To Run Repository Locally
-First use project2.yml to install the required Python modules (see instructions here: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#saving-environment-variables).
+First use project2.yml to create a new environment with the required Python modules (see instructions here: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#saving-environment-variables).
 
 If necessary, download and install MongoDB. Instructions here: https://www.mongodb.com/
 
