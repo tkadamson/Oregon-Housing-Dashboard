@@ -8,7 +8,7 @@ First use project2.yml to create a new environment with the required Python modu
 
 If necessary, download and install MongoDB. Instructions here: https://www.mongodb.com/
 
-Run census_cleaning.ipynb ONCE to extract the data from the ACS API and load it into your local MongoDB. Then run app.py in your preferred IDE. 
+Run census_cleaning.ipynb ONCE to extract the data from the ACS API and load it into your local MongoDB. Then run app.py in your preferred IDE or from the Command Line.
 
 ## Project Details
 
