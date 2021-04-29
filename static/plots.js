@@ -1,6 +1,9 @@
 // Set Baker County as initial load
 let countyName = "Baker"
 
+//*************************************************************************************
+//LINE GRAPH OF MEDIAN RENTS
+
 // Call on createPlots function
 createPlots(countyName);
 
@@ -91,7 +94,8 @@ function createPlots(countyName) {
         // Create graph
         Plotly.newPlot('plot', data1, layout);
 
-
+//*************************************************************************************
+//PIE CHART HOMEOWNERS VS RENTERS
 
         var width = 450;
         var height = 450;
@@ -148,7 +152,6 @@ function createPlots(countyName) {
 
 }
 
-
 function countyID() {
     let dropdownMenu = d3.select("#selDataset");
     let id = dropdownMenu.property("value");
@@ -157,6 +160,10 @@ function countyID() {
 }
 
 d3.selectAll("#selDataset").on("change", countyID);
+
+
+//*************************************************************************************
+//CHOROPLETH MAPS OF VARIOUS METRICS
 
 let counties = ['Baker', 'Benton', 'Clackamas', 'Clatsop', 'Columbia',
     'Coos', 'Crook', 'Curry', 'Deschutes', 'Douglas', 'Gilliam',
