@@ -275,7 +275,7 @@ Promise.all(countyCall).then(allCounties => {
     buildMap(popData, "map1", "Population");
     buildMap(incomeData, "map2", "Median Income");
     buildMap(rentData, "map3", "Median Rent");
-    buildMap(percRenters, "map4", "Renters as a % of Housholds");
+    buildMap(percRenters, "map4", "Renters as a % of Households");
     buildMap(percHomeoweners, "map5", "Homeowners as a % of Housholds");
     buildMap(newHousing, "map6", "New Housing Units Built 2014 or Later");
 });
